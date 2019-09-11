@@ -1,0 +1,252 @@
+package com.example.myapplication;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+
+    public Button but0, but1, but2, but3, but4, but5, but6, but7, but8, but9, butplus, butdivider,
+            butmultiply, butsubtract, butequal, butpoint, butcancel,butdel;
+    public EditText edText1, edText2, edText3;
+    public String existedText1, existedText2, existedText3;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+//        数字按钮控件
+        but0 = findViewById(R.id.btn_zero);
+        but1 = findViewById(R.id.btn_one);
+        but2 = findViewById(R.id.btn_two);
+        but3 = findViewById(R.id.btn_three);
+        but4 = findViewById(R.id.btn_four);
+        but5 = findViewById(R.id.btn_five);
+        but6 = findViewById(R.id.btn_six);
+        but7 = findViewById(R.id.btn_seven);
+        but8 = findViewById(R.id.btn_eight);
+        but9 = findViewById(R.id.btn_nine);
+//        运算符控件
+        butplus = findViewById(R.id.btn_plus);
+        butsubtract = findViewById(R.id.btn_subtract);
+        butmultiply = findViewById(R.id.btn_multiply);
+        butdivider = findViewById(R.id.btn_divider);
+        butequal = findViewById(R.id.btn_equal);
+        butpoint = findViewById(R.id.btn_point);
+        butcancel = findViewById(R.id.btn_cancel);
+        butdel=findViewById(R.id.btn_delete);
+        edText3 = findViewById(R.id.result_text3);
+        edText2 = findViewById(R.id.result_text2);
+        edText1 = findViewById(R.id.result_text1);
+        existedText1 = edText1.getText().toString();
+        existedText2 = edText2.getText().toString();
+        existedText3 = edText3.getText().toString();
+
+        but0.setOnClickListener(this);
+        but1.setOnClickListener(this);
+        but2.setOnClickListener(this);
+        but3.setOnClickListener(this);
+        but4.setOnClickListener(this);
+        but5.setOnClickListener(this);
+        but6.setOnClickListener(this);
+        but7.setOnClickListener(this);
+        but8.setOnClickListener(this);
+        but9.setOnClickListener(this);
+        butplus.setOnClickListener(this);
+        butsubtract.setOnClickListener(this);
+        butmultiply.setOnClickListener(this);
+        butdivider.setOnClickListener(this);
+        butequal.setOnClickListener(this);
+        butpoint.setOnClickListener(this);
+        butdel.setOnClickListener(this);
+        butcancel.setOnClickListener(this);
+    }
+
+    public void onClick(View v) {
+        existedText3 = edText3.getText().toString();
+        existedText2 = edText2.getText().toString();
+        existedText1 = edText1.getText().toString();
+        double a, b = 0, c = 0;
+        try {
+            b = Double.parseDouble(existedText1);
+            c = Double.parseDouble(existedText3);
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+        }
+        switch (v.getId()) {
+            case R.id.btn_zero:
+            case R.id.btn_one:
+            case R.id.btn_two:
+            case R.id.btn_three:
+            case R.id.btn_four:
+            case R.id.btn_five:
+            case R.id.btn_six:
+            case R.id.btn_seven:
+            case R.id.btn_eight:
+            case R.id.btn_nine:
+            case R.id.btn_point:
+                if (existedText3.equals("0"))
+                    edText3.setText(((Button) v).getText());
+                else
+                    edText3.setText(existedText3 + ((Button) v).getText());
+                break;
+
+            case R.id.btn_plus:
+                if (existedText3.equals("0"))
+                {
+                    if (existedText1.equals(""))
+                        ;
+                    else
+                        edText2.setText("+");
+                }
+                else {
+                    edText1.setText(existedText3);
+                    edText2.setText("+");
+                    edText3.setText("0");
+
+                    if (existedText1.equals(""))
+                        ;
+                    else {
+                        if (existedText2.equals("-"))
+                            a = b - c;
+                        else if (existedText2.equals("*"))
+                            a = b * c;
+                        else if (existedText2.equals("/"))
+                            a = b / c;
+                        else
+                            a = b + c;
+                        edText1.setText(String.valueOf(a));
+                        edText2.setText("+");
+                        edText3.setText("0");
+                    }
+                }
+                break;
+            case R.id.btn_subtract:
+                if (existedText3.equals("0")) {
+                    if (existedText1.equals(""))
+                        ;
+                    else
+                        edText2.setText("-");
+                }
+                else {
+                    edText1.setText(existedText3);
+                    edText2.setText("-");
+                    edText3.setText("0");
+
+                    if (existedText1.equals(""))
+                        ;
+                    else {
+                        if (existedText2.equals("+"))
+                            a = b + c;
+                        else if (existedText2.equals("*"))
+                            a = b * c;
+                        else if (existedText2.equals("/"))
+                            a = b / c;
+                        else
+                            a = b - c;
+                        edText1.setText(String.valueOf(a));
+                        edText2.setText("-");
+                        edText3.setText("0");
+                    }
+                }
+                break;
+            case R.id.btn_multiply:
+                if (existedText3.equals("0"))
+                {
+                    if (existedText1.equals(""))
+                        ;
+                    else
+                        edText2.setText("*");
+                }
+                else {
+                    edText1.setText(existedText3);
+                    edText2.setText("*");
+                    edText3.setText("0");
+                if (existedText1.equals(""))
+                    ;
+                else {
+                    if (existedText2.equals("+"))
+                        a = b + c;
+                    else if (existedText2.equals("-"))
+                        a = b - c;
+                    else if (existedText2.equals("/"))
+                        a = b / c;
+                    else
+                        a = b * c;
+                    edText1.setText(String.valueOf(a));
+                    edText2.setText("*");
+                    edText3.setText("0");
+                }
+        }
+                break;
+            case R.id.btn_divider:
+                if (existedText3.equals("0"))
+                {
+                    if (existedText1.equals(""))
+                        ;
+                    else
+                        edText2.setText("/");
+                }
+                else {
+                    edText1.setText(existedText3);
+                    edText2.setText("/");
+                    edText3.setText("0");
+                    if (existedText1.equals(""))
+                        ;
+                    else {
+                        if (existedText2.equals("+"))
+                            a = b + c;
+                        else if (existedText2.equals("*"))
+                            a = b * c;
+                        else if (existedText2.equals("-"))
+                            a = b - c;
+                        else
+                            a = b / c;
+                        edText1.setText(String.valueOf(a));
+                        edText2.setText("/");
+                        edText3.setText("0");
+                    }
+                }
+                break;
+
+            case R.id.btn_delete:
+                if(existedText3.equals("0")) //判断是否为空，然后在进行删除
+                    ;
+                else
+                    edText3.setText(existedText3.substring(0,existedText3.length()-1));
+                break;
+            case R.id.btn_cancel:
+                edText1.setText("");
+                edText2.setText("");
+                edText3.setText("0");
+                break;
+            case R.id.btn_equal: //单独运算最后结果
+                if (existedText2.equals(""))
+                    ;
+                else {
+                    if (existedText2.equals("+")) {
+                            a=b+c;
+                            edText1.setText(String.valueOf(a));
+                    } else if (existedText2.equals("-")) {
+                            a=b-c;
+                            edText1.setText(String.valueOf(a));
+
+                    } else if (existedText2.equals("*")) {
+                            a=b*c;
+                            edText1.setText(String.valueOf(a));
+
+                    } else if (existedText2.equals("/")) {
+                            a=b/c;
+                            edText1.setText(String.valueOf(a));
+                    }
+                    edText2.setText("");
+                    edText3.setText("0");
+                }
+                break;
+        }
+    }
+}
